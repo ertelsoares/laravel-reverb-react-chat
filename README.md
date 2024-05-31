@@ -1,4 +1,4 @@
-# Laravel Reverb React Chat Application
+# Laravel Chat Application
 
 Este projeto é um exemplo de aplicação de bate-papo em tempo real usando Laravel 11, Reverb, e React.js. A aplicação suporta autenticação de usuários, transmissão de mensagens em tempo real via WebSockets e interface de usuário com React.
 
