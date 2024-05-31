@@ -1,40 +1,36 @@
-# Laravel Reverb React Chat Application
+Aqui está o conteúdo formatado para um arquivo `README.md` para o GitHub:
 
-Este projeto é um exemplo de aplicação de bate-papo em tempo real usando Laravel 11, Reverb, e React.js. A aplicação suporta autenticação de usuários, transmissão de mensagens em tempo real via WebSockets e interface de usuário com React.
+```markdown
+# Laravel Reverb Chat Application
 
-## Pré-requisitos
-
-Certifique-se de ter as seguintes ferramentas instaladas:
-
-- **PHP**: versão 8.2 ou superior (`php -v` para verificar a versão)
-- **Composer** (`composer` para verificar se está instalado)
-- **Node.js**: versão 20 ou superior (`node -v` para verificar a versão)
-- **MySQL**: versão 5.7 ou superior (`mysql --version` para verificar se está instalado)
+Este projeto demonstra como criar um aplicativo de chat em tempo real usando Laravel 11, React.js e Laravel Reverb.
 
 ## Etapas Gerais
 
-1. Instalando o Laravel 11
-2. Adicionando autenticação
-3. Instalando e configurando o Reverb
-4. Criando componentes React e escutando eventos no frontend
+As principais etapas deste artigo são:
 
-## Instalação do Laravel
+1. Instalando o Laravel 11.
+2. Adicionando fluxo de autenticação (andaime de autenticação) usando Bootstrap com React/Vue.
+3. Instalando o Reverb.
+4. Criando componentes React.js e escutando eventos no frontend.
 
-Para começar, instale o Laravel 11 usando o Composer:
+## Como instalar o Laravel
+
+Para começar, instale o Laravel 11 usando o comando do Composer:
 
 ```sh
 composer create-project laravel/laravel:^11.0 laravel-reverb-react-chat && cd laravel-reverb-react-chat/
 ```
 
-Verifique o aplicativo executando o comando:
+Neste ponto, você pode verificar o aplicativo executando o comando:
 
 ```sh
 php artisan serve
 ```
 
-## Criando o Modelo e Migração
+## Como Criar o Modelo e Migração
 
-Gere um modelo e uma migração para as mensagens:
+Você pode gerar um modelo e uma migração para as mensagens usando este comando:
 
 ```sh
 php artisan make:model -m Message
@@ -70,8 +66,7 @@ class Message extends Model
     }
 }
 ```
-
-Configure a migração para a tabela `messages`:
+Crie a migração para a tabela `messages`:
 
 ```php
 <?php
@@ -97,9 +92,9 @@ return new class extends Migration
 };
 ```
 
-Configure o arquivo `.env` para o banco de dados:
+Configure as variáveis de ambiente no arquivo `.env`:
 
-```dotenv
+```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -115,35 +110,30 @@ php artisan optimize
 php artisan migrate:fresh
 ```
 
-## Adicionando Autenticação
+## Como adicionar autenticação
 
-Instale o pacote Laravel UI:
+Adicione estruturas de autenticação ao seu aplicativo:
 
 ```sh
 composer require laravel/ui
-```
-
-Implemente os ativos relacionados ao React:
-
-```sh
 php artisan ui react --auth
 ```
 
-Instale os pacotes NPM e compile os ativos de frontend:
+Instale pacotes NPM e construa ativos de frontend:
 
 ```sh
 npm install && npm run build
 ```
 
-Inicie o servidor Laravel:
+Inicie o aplicativo Laravel:
 
 ```sh
 php artisan optimize && php artisan serve
 ```
 
-## Configuração das Rotas
+## Como configurar rotas
 
-Adicione as rotas no arquivo `routes/web.php`:
+Configure rotas no arquivo `web.php`:
 
 ```php
 <?php
@@ -156,12 +146,15 @@ Route::get('/', function () { return view('welcome'); });
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/messages', [HomeController::class, 'messages'])->name('messages');
-Route::post('/message', [HomeController::class, 'message'])->name('message');
+Route::get('/home', [HomeController::class, 'index'])
+    ->name('home');
+Route::get('/messages', [HomeController::class, 'messages'])
+    ->name('messages');
+Route::post('/message', [HomeController::class, 'message'])
+    ->name('message');
 ```
 
-## Configuração de Eventos e Jobs no Laravel
+## Como configurar um evento Laravel
 
 Crie um evento `GotMessage`:
 
@@ -169,7 +162,7 @@ Crie um evento `GotMessage`:
 php artisan make:event GotMessage
 ```
 
-Implemente o evento `GotMessage`:
+Configure o evento:
 
 ```php
 <?php
@@ -198,13 +191,15 @@ class GotMessage implements ShouldBroadcast
 }
 ```
 
-Crie um job `SendMessage`:
+## Como configurar um trabalho de fila do Laravel
+
+Crie o trabalho `SendMessage`:
 
 ```sh
 php artisan make:job SendMessage
 ```
 
-Implemente o job `SendMessage`:
+Configure o trabalho:
 
 ```php
 <?php
@@ -238,7 +233,9 @@ class SendMessage implements ShouldQueue
 }
 ```
 
-Implemente os métodos do controlador:
+## Como escrever os métodos do controlador
+
+Adicione métodos no `HomeController`:
 
 ```php
 <?php
@@ -288,17 +285,17 @@ class HomeController extends Controller
 }
 ```
 
-## Instalação do Laravel Reverb
+## Como instalar o Laravel Reverb
 
-Instale o Reverb:
+Instale o Reverb no seu aplicativo Laravel:
 
 ```sh
 php artisan install:broadcasting
 ```
 
-Certifique-se de que as variáveis de ambiente específicas do Reverb foram adicionadas ao arquivo `.env`:
+Adicione as variáveis de ambiente no arquivo `.env`:
 
-```dotenv
+```env
 BROADCAST_CONNECTION=reverb
 
 ###
@@ -316,7 +313,9 @@ VITE_REVERB_PORT="${REVERB_PORT}"
 VITE_REVERB_SCHEME="${REVERB_SCHEME}"
 ```
 
-Adicione o canal ao arquivo `routes/channels.php`:
+## Como configurar canais WebSocket
+
+Adicione um canal ao arquivo `channels.php`:
 
 ```php
 <?php
@@ -328,13 +327,13 @@ Broadcast::channel('channel_for_everyone', function ($user) {
 });
 ```
 
-Otimize o cache:
+Otimize os caches:
 
 ```sh
 php artisan optimize
 ```
 
-## Personalização das Visualizações do Laravel
+## Como personalizar visualizações do Laravel
 
 Configure a visualização `home.blade.php`:
 
@@ -348,9 +347,17 @@ Configure a visualização `home.blade.php`:
 @endsection
 ```
 
-## Configuração do Frontend com React
+Configure a visualização `welcome.blade.php`:
 
-Crie o componente `Main.jsx`:
+- Substitua `url('/dashboard')` com `url('/home')`.
+- Substitua `Dashboard` com `Home`.
+- Remova `main` e `footer` seções.
+
+## Trabalhando no frontend
+
+Crie componentes React na pasta `resources/js/components`.
+
+`Main.jsx`:
 
 ```jsx
 import React from 'react';
@@ -369,14 +376,7 @@ if (document.getElementById('main')) {
 }
 ```
 
-Remova o arquivo `Example.jsx` e importe o `Main.jsx` no `app.js`:
-
-```jsx
-import './bootstrap';
-import './components/Main.jsx';
-```
-
-Crie o componente `Message.jsx`:
+`Message.jsx`:
 
 ```jsx
 import React from "react";
@@ -389,4 +389,142 @@ const Message = ({ userId, message }) => {
             <div className="col-md-6">
 		<small className="text-muted">
                     <strong>{message.user.name} | </strong>
-                </small
+                </small>
+                <small className="text-muted float-right">
+                    {message.time}
+                </small>
+                <div className={`alert alert-${
+                userId === message.user_id ? "primary" : "secondary"
+                }`} role="alert">
+                    {message.text}
+                </div>
+            </div
+
+>
+        </div>
+    );
+}
+
+export default Message;
+```
+
+`ChatBox.jsx`:
+
+```jsx
+import React, { useEffect, useState, useRef } from "react";
+import axios from "axios";
+import Message from "./Message.jsx";
+import { useForm } from "react-hook-form";
+import Echo from "laravel-echo";
+
+const ChatBox = ({ rootUrl }) => {
+    const [messages, setMessages] = useState([]);
+    const userElement = document.getElementById('main');
+    const user = JSON.parse(userElement.getAttribute("data-user"));
+    const { register, handleSubmit, setValue, watch } = useForm({
+        defaultValues: { text: "" },
+    });
+
+    const scrollRef = useRef();
+
+    useEffect(() => {
+        fetchMessages();
+        let echo = new Echo({
+            broadcaster: "pusher",
+            key: import.meta.env.VITE_REVERB_APP_KEY,
+            wsHost: import.meta.env.VITE_REVERB_HOST,
+            wsPort: import.meta.env.VITE_REVERB_PORT,
+            wssPort: import.meta.env.VITE_REVERB_PORT,
+            forceTLS: false,
+            disableStats: true,
+            enabledTransports: ["ws", "wss"],
+            scheme: import.meta.env.VITE_REVERB_SCHEME,
+        });
+        echo.private("channel_for_everyone").listen("GotMessage", (e) => {
+            setMessages((messages) => [...messages, e.message]);
+        });
+    }, []);
+
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+    }, [messages]);
+
+    const fetchMessages = async () => {
+        try {
+            const { data } = await axios.get(`${rootUrl}/messages`);
+            setMessages(data);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    const sendMessage = async ({ text }) => {
+        try {
+            await axios.post(`${rootUrl}/message`, { text });
+            setValue("text", "");
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    return (
+        <div className="card">
+            <div className="card-header">
+                <h4>Messages</h4>
+            </div>
+            <div className="card-body" ref={scrollRef} style={{ overflowY: "auto", maxHeight: "500px" }}>
+                {messages.map((message, i) => (
+                    <Message key={i} userId={user.id} message={message} />
+                ))}
+            </div>
+            <div className="card-footer">
+                <form onSubmit={handleSubmit(sendMessage)}>
+                    <div className="input-group">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Type a message"
+                            {...register("text", { required: true })}
+                        />
+                        <div className="input-group-append">
+                            <button className="btn btn-primary" type="submit">
+                                Send
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+};
+
+export default ChatBox;
+```
+
+Construa os ativos de frontend:
+
+```sh
+npm run build
+```
+
+## Conclusão
+
+Você configurou um aplicativo de chat em tempo real usando Laravel 11, React.js e Laravel Reverb. 
+
+Verifique a funcionalidade executando os seguintes comandos:
+
+```sh
+php artisan optimize
+php artisan serve
+```
+
+### Recursos Adicionais
+
+- [Documentação Laravel](https://laravel.com/docs)
+- [Documentação React](https://reactjs.org/docs/getting-started.html)
+- [Documentação Laravel Reverb](https://laravel-reverb.readme.io/docs)
+```
+
+Este arquivo `README.md` fornece um guia detalhado para configurar o aplicativo de chat em tempo real. Certifique-se de ajustar quaisquer detalhes adicionais específicos ao seu projeto conforme necessário.
